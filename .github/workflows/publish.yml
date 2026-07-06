@@ -1,13 +1,16 @@
 name: Publish barjavel
 
+# Publication automatique sur npm à chaque push sur main, MAIS uniquement si la
+# version de package.json n'est pas déjà publiée. Pour release : bumper la
+# version (npm version patch|minor|major) puis pousser sur main — c'est tout.
 on:
   push:
-    tags:
-      - "v*"
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
+  id-token: write # requis pour la provenance npm (dépôt public)
 
 jobs:
   publish:
@@ -17,10 +20,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
           registry-url: https://registry.npmjs.org
       - run: npm ci
       - run: npx tsc --noEmit
       - run: npm run build
-      - run: npm publish --access public
+      - name: Publier si la version n'est pas déjà sur npm
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "barjavel@$VERSION" version >/dev/null 2>&1; then
+            echo "barjavel@$VERSION est déjà publié — aucune action."
+          else
+            echo "Publication de barjavel@$VERSION…"
+            npm publish --access public --provenance
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
