@@ -1,42 +1,42 @@
-import { useEffect, useState } from "react";
-import { renderMermaid } from "../lib/mermaid";
-import { getTheme, subscribe } from "../lib/theme";
-import { DiagramModal } from "./DiagramModal";
+import { useEffect, useState } from "react"
+import { renderMermaid } from "../lib/mermaid"
+import { getTheme, subscribe } from "../lib/theme"
+import { DiagramModal } from "./DiagramModal"
 
 interface Props {
-  code: string;
+  code: string
 }
 
 export function Mermaid({ code }: Props) {
-  const [svg, setSvg] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [open, setOpen] = useState(false);
-  const [theme, setThemeState] = useState(getTheme);
+  const [svg, setSvg] = useState<string>("")
+  const [error, setError] = useState<string>("")
+  const [open, setOpen] = useState(false)
+  const [theme, setThemeState] = useState(getTheme)
 
   // Re-render du diagramme quand le thème change.
-  useEffect(() => subscribe(setThemeState), []);
+  useEffect(() => subscribe(setThemeState), [])
 
   useEffect(() => {
-    let cancelled = false;
-    setError("");
+    let cancelled = false
+    setError("")
     renderMermaid(code, theme)
       .then((out) => {
-        if (!cancelled) setSvg(out);
+        if (!cancelled) setSvg(out)
       })
       .catch((err) => {
-        if (!cancelled) setError(String(err?.message ?? err));
-      });
+        if (!cancelled) setError(String(err?.message ?? err))
+      })
     return () => {
-      cancelled = true;
-    };
-  }, [code, theme]);
+      cancelled = true
+    }
+  }, [code, theme])
 
   if (error) {
     return (
       <pre className="rounded-xl border border-red-500/40">
         <code>{code}</code>
       </pre>
-    );
+    )
   }
 
   return (
@@ -67,5 +67,5 @@ export function Mermaid({ code }: Props) {
       </button>
       {open && <DiagramModal svg={svg} onClose={() => setOpen(false)} />}
     </>
-  );
+  )
 }

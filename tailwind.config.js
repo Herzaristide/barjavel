@@ -1,4 +1,4 @@
-import typography from "@tailwindcss/typography";
+import typography from "@tailwindcss/typography"
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -17,21 +17,8 @@ export default {
         line: "rgb(var(--line) / <alpha-value>)",
       },
       fontFamily: {
-        sans: [
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
-        ],
-        mono: [
-          "ui-monospace",
-          "SF Mono",
-          "JetBrains Mono",
-          "Menlo",
-          "monospace",
-        ],
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        mono: ["ui-monospace", "SF Mono", "JetBrains Mono", "Menlo", "monospace"],
       },
       keyframes: {
         rise: {
@@ -50,4 +37,4 @@ export default {
     },
   },
   plugins: [typography],
-};
+}

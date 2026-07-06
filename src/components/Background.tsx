@@ -6,10 +6,7 @@
  */
 export function Background() {
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-    >
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <svg
         aria-hidden="true"
         className="absolute inset-0 h-full w-full text-accent"
@@ -34,10 +31,7 @@ export function Background() {
           </g>
 
           {/* Hexagone, milieu-gauche bas. */}
-          <polygon
-            opacity="0.2"
-            points="150,560 230,520 310,560 310,650 230,690 150,650"
-          />
+          <polygon opacity="0.2" points="150,560 230,520 310,560 310,650 230,690 150,650" />
 
           {/* Triangle, bas-gauche. */}
           <polygon opacity="0.18" points="120,780 260,780 190,660" />
@@ -67,5 +61,5 @@ export function Background() {
         </g>
       </svg>
     </div>
-  );
+  )
 }

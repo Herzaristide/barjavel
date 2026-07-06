@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { getTheme, subscribe, toggleTheme } from "../lib/theme";
+import { useEffect, useState } from "react"
+import { getTheme, subscribe, toggleTheme } from "../lib/theme"
 
 export function ThemeToggle() {
-  const [theme, setThemeState] = useState(getTheme);
+  const [theme, setThemeState] = useState(getTheme)
 
-  useEffect(() => subscribe(setThemeState), []);
+  useEffect(() => subscribe(setThemeState), [])
 
-  const isDark = theme === "dark";
+  const isDark = theme === "dark"
 
   return (
     <button
@@ -38,5 +38,5 @@ export function ThemeToggle() {
         </svg>
       )}
     </button>
-  );
+  )
 }

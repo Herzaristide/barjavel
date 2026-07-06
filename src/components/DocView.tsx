@@ -1,35 +1,29 @@
-import type {
-  AnchorHTMLAttributes,
-  HTMLAttributes,
-  ReactElement,
-} from "react";
-import { isValidElement } from "react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { type Doc, docs } from "../lib/content";
-import { CodeBlock } from "./CodeBlock";
-import { Mermaid } from "./Mermaid";
+import type { AnchorHTMLAttributes, HTMLAttributes, ReactElement } from "react"
+import { isValidElement } from "react"
+import Markdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { type Doc, docs } from "../lib/content"
+import { CodeBlock } from "./CodeBlock"
+import { Mermaid } from "./Mermaid"
 
 interface Props {
-  doc: Doc;
-  onNavigate: (slug: string) => void;
+  doc: Doc
+  onNavigate: (slug: string) => void
 }
 
 const isMermaid = (node: unknown): node is ReactElement<{ className?: string }> =>
   isValidElement(node) &&
   typeof (node.props as { className?: string }).className === "string" &&
-  (node.props as { className: string }).className.includes("language-mermaid");
+  (node.props as { className: string }).className.includes("language-mermaid")
 
 // Documents directement reliés, pour la barre de liens en pied de lecture.
 function related(doc: Doc): Doc[] {
-  const set = new Set(doc.links);
+  const set = new Set(doc.links)
   for (const other of docs) {
-    if (other.links.includes(doc.slug)) set.add(other.slug);
+    if (other.links.includes(doc.slug)) set.add(other.slug)
   }
-  set.delete(doc.slug);
-  return [...set]
-    .map((s) => docs.find((d) => d.slug === s))
-    .filter(Boolean) as Doc[];
+  set.delete(doc.slug)
+  return [...set].map((s) => docs.find((d) => d.slug === s)).filter(Boolean) as Doc[]
 }
 
 export function DocView({ doc, onNavigate }: Props) {
@@ -39,11 +33,7 @@ export function DocView({ doc, onNavigate }: Props) {
         <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-faint">
           {doc.group}
         </span>
-        {doc.summary && (
-          <p className="mt-2 text-lg leading-relaxed text-ink-dim">
-            {doc.summary}
-          </p>
-        )}
+        {doc.summary && <p className="mt-2 text-lg leading-relaxed text-ink-dim">{doc.summary}</p>}
       </header>
 
       <div
@@ -61,40 +51,38 @@ export function DocView({ doc, onNavigate }: Props) {
           components={{
             code(props: HTMLAttributes<HTMLElement> & { className?: string }) {
               if (props.className?.includes("language-mermaid")) {
-                return (
-                  <Mermaid code={String(props.children).replace(/\n$/, "")} />
-                );
+                return <Mermaid code={String(props.children).replace(/\n$/, "")} />
               }
-              return <code className={props.className}>{props.children}</code>;
+              return <code className={props.className}>{props.children}</code>
             },
             pre(props: HTMLAttributes<HTMLPreElement>) {
-              const children = props.children;
-              const first = Array.isArray(children) ? children[0] : children;
-              if (isMermaid(first)) return <>{children}</>;
-              return <CodeBlock>{children}</CodeBlock>;
+              const children = props.children
+              const first = Array.isArray(children) ? children[0] : children
+              if (isMermaid(first)) return <>{children}</>
+              return <CodeBlock>{children}</CodeBlock>
             },
             a(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
-              const href = props.href ?? "";
+              const href = props.href ?? ""
               if (href.startsWith("#")) {
-                const slug = href.replace(/^#\/?/, "");
+                const slug = href.replace(/^#\/?/, "")
                 return (
                   <a
                     href={href}
                     className="text-accent"
                     onClick={(e) => {
-                      e.preventDefault();
-                      onNavigate(slug);
+                      e.preventDefault()
+                      onNavigate(slug)
                     }}
                   >
                     {props.children}
                   </a>
-                );
+                )
               }
               return (
                 <a href={href} target="_blank" rel="noreferrer noopener">
                   {props.children}
                 </a>
-              );
+              )
             },
           }}
         >
@@ -118,5 +106,5 @@ export function DocView({ doc, onNavigate }: Props) {
         </footer>
       )}
     </article>
-  );
+  )
 }

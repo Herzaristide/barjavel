@@ -1,8 +1,8 @@
-# DocMaker
+# Borges
 
 **Déposez vos Markdown, choisissez une couleur, déployez.**
 
-DocMaker est un générateur de site de documentation minimaliste et élégant.
+Borges est un générateur de site de documentation minimaliste et élégant.
 Vous n'avez que deux choses à faire : mettre vos fichiers `.md` dans `content/`
 et régler une couleur d'accent dans `docs.config.ts`.
 
@@ -14,9 +14,29 @@ et régler une couleur d'accent dans `docs.config.ts`.
 - 🌗 **Thème clair / sombre** persistant (suit la préférence système).
 - 🎨 **Une seule couleur d'accent** à changer, appliquée partout.
 - 📈 **Diagrammes Mermaid** (` ```mermaid `), plein écran avec zoom.
+- 📱 **PWA** : installable et consultable **hors-ligne** (manifeste + service worker).
 - ⚡ **Statique** : se déploie n'importe où (GitHub Pages préconfiguré).
 
 ## 🚀 Démarrer
+
+### Dans un nouveau dossier (recommandé)
+
+Un seul package npm suffit, utilisable aussi bien avec `npx` qu'avec `bunx` :
+
+```bash
+npx create-borges-docs mon-projet
+# ou
+bunx create-borges-docs mon-projet
+
+cd mon-projet
+npm run dev        # (ou `bun run dev`) http://localhost:5173
+```
+
+Options utiles : `--title "Mon titre"`, `--pm bun|npm|pnpm|yarn`, `--no-install`.
+Le CLI copie le template, installe les dépendances et affiche les prochaines
+étapes. Voir [`create-borges-docs/`](./create-borges-docs) pour le détail.
+
+### En clonant ce dépôt
 
 ```bash
 npm install
@@ -82,13 +102,16 @@ aussi bien à la racine d'un domaine que dans un sous-chemin
 ## 🗂️ Structure
 
 ```
-docmaker/
-├── docs.config.ts      # ← votre configuration (titre + couleur)
-├── content/            # ← vos fichiers Markdown
+borges/
+├── docs.config.ts        # ← votre configuration (titre + couleur)
+├── content/              # ← vos fichiers Markdown
 │   ├── index.md
 │   └── …
-├── src/                # code de l'application (rarement à toucher)
-└── .github/workflows/  # déploiement GitHub Pages
+├── src/                  # code de l'application (rarement à toucher)
+├── .github/workflows/    # déploiement GitHub Pages
+└── create-borges-docs/   # CLI `npx create-borges-docs` (scaffolding)
+    ├── bin/
+    └── template/         # copie synchronisée via `npm run sync:template`
 ```
 
 ## 📄 Licence

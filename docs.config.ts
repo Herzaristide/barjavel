@@ -1,4 +1,4 @@
-import type { DocsConfig } from "./src/lib/config";
+import type { DocsConfig } from "./src/lib/config"
 
 /**
  * Configuration de votre documentation.
@@ -17,13 +17,11 @@ const config: DocsConfig = {
   // Couleur d'accent unique (titres, liens, graphe, diagrammes…).
   // Exemples : "#7c3aed" (violet), "#2563eb" (bleu), "#059669" (vert),
   // "#e11d48" (rose), "#ea580c" (orange).
-  accent: "#7c3aed",
+  accent: "#e11d48",
 
   // Optionnel : forcer un accent différent selon le thème.
   // accentDark: "#a78bfa",
   // accentLight: "#7c3aed",
+}
 
-  footer: "Construit avec DocMaker",
-};
-
-export default config;
+export default config

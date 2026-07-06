@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { docs } from "../lib/content";
+import { useEffect, useMemo, useRef, useState } from "react"
+import { docs } from "../lib/content"
 
 interface Props {
-  onSelect: (slug: string) => void;
+  onSelect: (slug: string) => void
 }
 
 interface Hit {
-  slug: string;
-  title: string;
-  excerpt: string;
-  score: number;
+  slug: string
+  title: string
+  excerpt: string
+  score: number
 }
 
 // Index de recherche léger (titre + corps sans markdown).
@@ -19,69 +19,67 @@ const index = docs.map((d) => ({
   summary: d.summary,
   text: d.body.replace(/[#>*`_\-|[\]()!]/g, " ").replace(/\s+/g, " "),
   lower: `${d.title} ${d.summary} ${d.body}`.toLowerCase(),
-}));
+}))
 
 function search(q: string): Hit[] {
-  const query = q.trim().toLowerCase();
-  if (!query) return [];
-  const terms = query.split(/\s+/);
-  const hits: Hit[] = [];
+  const query = q.trim().toLowerCase()
+  if (!query) return []
+  const terms = query.split(/\s+/)
+  const hits: Hit[] = []
   for (const doc of index) {
-    let score = 0;
+    let score = 0
     for (const term of terms) {
-      if (doc.title.toLowerCase().includes(term)) score += 5;
-      if (doc.summary.toLowerCase().includes(term)) score += 2;
-      const n = doc.lower.split(term).length - 1;
-      score += Math.min(n, 6);
+      if (doc.title.toLowerCase().includes(term)) score += 5
+      if (doc.summary.toLowerCase().includes(term)) score += 2
+      const n = doc.lower.split(term).length - 1
+      score += Math.min(n, 6)
     }
-    if (score === 0) continue;
-    const pos = doc.text.toLowerCase().indexOf(terms[0]);
-    const start = Math.max(0, pos - 40);
-    const excerpt = `${start > 0 ? "…" : ""}${doc.text
-      .slice(start, start + 140)
-      .trim()}…`;
+    if (score === 0) continue
+    const pos = doc.text.toLowerCase().indexOf(terms[0])
+    const start = Math.max(0, pos - 40)
+    const excerpt = `${start > 0 ? "…" : ""}${doc.text.slice(start, start + 140).trim()}…`
     hits.push({
       slug: doc.slug,
       title: doc.title,
       excerpt: pos >= 0 ? excerpt : doc.summary,
       score,
-    });
+    })
   }
-  return hits.sort((a, b) => b.score - a.score).slice(0, 8);
+  return hits.sort((a, b) => b.score - a.score).slice(0, 8)
 }
 
 export function Search({ onSelect }: Props) {
-  const [open, setOpen] = useState(false);
-  const [q, setQ] = useState("");
-  const [cursor, setCursor] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false)
+  const [q, setQ] = useState("")
+  const [cursor, setCursor] = useState(0)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const hits = useMemo(() => search(q), [q]);
+  const hits = useMemo(() => search(q), [q])
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: réinitialise le curseur à chaque requête
-  useEffect(() => setCursor(0), [q]);
+  useEffect(() => setCursor(0), [q])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setOpen((v) => !v);
+        e.preventDefault()
+        setOpen((v) => !v)
       }
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+      if (e.key === "Escape") setOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [])
 
   useEffect(() => {
-    if (open) inputRef.current?.focus();
-    else setQ("");
-  }, [open]);
+    if (open) inputRef.current?.focus()
+    else setQ("")
+  }, [open])
 
   const choose = (slug: string) => {
-    onSelect(slug);
-    setOpen(false);
-  };
+    onSelect(slug)
+    setOpen(false)
+  }
 
   return (
     <>
@@ -124,13 +122,7 @@ export function Search({ onSelect }: Props) {
                 className="flex-none text-ink-faint"
                 aria-hidden="true"
               >
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="7"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
                 <line
                   x1="16.5"
                   y1="16.5"
@@ -148,19 +140,15 @@ export function Search({ onSelect }: Props) {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "ArrowDown")
-                    setCursor((c) => Math.min(c + 1, hits.length - 1));
-                  if (e.key === "ArrowUp") setCursor((c) => Math.max(c - 1, 0));
-                  if (e.key === "Enter" && hits[cursor])
-                    choose(hits[cursor].slug);
+                  if (e.key === "ArrowDown") setCursor((c) => Math.min(c + 1, hits.length - 1))
+                  if (e.key === "ArrowUp") setCursor((c) => Math.max(c - 1, 0))
+                  if (e.key === "Enter" && hits[cursor]) choose(hits[cursor].slug)
                 }}
               />
             </div>
             <div className="overflow-y-auto p-1.5">
               {q && hits.length === 0 && (
-                <div className="p-6 text-center text-sm text-ink-faint">
-                  Aucun résultat
-                </div>
+                <div className="p-6 text-center text-sm text-ink-faint">Aucun résultat</div>
               )}
               {hits.map((h, i) => (
                 <button
@@ -183,25 +171,17 @@ export function Search({ onSelect }: Props) {
               ))}
             </div>
             <div className="border-t border-line px-4 py-2.5 text-[0.72rem] text-ink-faint">
-              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">
-                ↑
-              </kbd>{" "}
-              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">
-                ↓
-              </kbd>{" "}
+              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">↑</kbd>{" "}
+              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">↓</kbd>{" "}
               naviguer ·{" "}
-              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">
-                ↵
-              </kbd>{" "}
+              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">↵</kbd>{" "}
               ouvrir ·{" "}
-              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">
-                Échap
-              </kbd>{" "}
+              <kbd className="rounded border border-line bg-void px-1 py-0.5 font-mono">Échap</kbd>{" "}
               fermer
             </div>
           </div>
         </div>
       )}
     </>
-  );
+  )
 }

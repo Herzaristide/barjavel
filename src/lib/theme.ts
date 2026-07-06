@@ -2,29 +2,29 @@
 // L'application initiale se fait dans un script inline (index.html) pour
 // éviter tout flash au chargement.
 
-export type Theme = "light" | "dark";
-const KEY = "docmaker-theme";
-const listeners = new Set<(t: Theme) => void>();
+export type Theme = "light" | "dark"
+const KEY = "borges-theme"
+const listeners = new Set<(t: Theme) => void>()
 
 export function getTheme(): Theme {
-  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light"
 }
 
 export function setTheme(t: Theme): void {
-  document.documentElement.classList.toggle("dark", t === "dark");
+  document.documentElement.classList.toggle("dark", t === "dark")
   try {
-    localStorage.setItem(KEY, t);
+    localStorage.setItem(KEY, t)
   } catch {
     // stockage indisponible : on garde juste l'état en mémoire.
   }
-  for (const fn of listeners) fn(t);
+  for (const fn of listeners) fn(t)
 }
 
 export function toggleTheme(): void {
-  setTheme(getTheme() === "dark" ? "light" : "dark");
+  setTheme(getTheme() === "dark" ? "light" : "dark")
 }
 
 export function subscribe(fn: (t: Theme) => void): () => void {
-  listeners.add(fn);
-  return () => listeners.delete(fn);
+  listeners.add(fn)
+  return () => listeners.delete(fn)
 }

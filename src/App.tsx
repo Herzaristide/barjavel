@@ -1,34 +1,34 @@
-import { useCallback, useEffect, useState } from "react";
-import { DocView } from "./components/DocView";
-import { Background } from "./components/Background";
-import { Graph } from "./components/Graph";
-import { Search } from "./components/Search";
-import { ThemeToggle } from "./components/ThemeToggle";
-import { getDoc, rootSlug } from "./lib/content";
-import { config } from "./lib/config";
+import { useCallback, useEffect, useState } from "react"
+import { DocView } from "./components/DocView"
+import { Background } from "./components/Background"
+import { Graph } from "./components/Graph"
+import { Search } from "./components/Search"
+import { ThemeToggle } from "./components/ThemeToggle"
+import { getDoc, rootSlug } from "./lib/content"
+import { config } from "./lib/config"
 
 function slugFromHash(): string {
-  const raw = window.location.hash.replace(/^#\/?/, "").trim();
-  return raw && getDoc(raw) ? raw : rootSlug;
+  const raw = window.location.hash.replace(/^#\/?/, "").trim()
+  return raw && getDoc(raw) ? raw : rootSlug
 }
 
 export function App() {
-  const [active, setActive] = useState<string>(slugFromHash);
+  const [active, setActive] = useState<string>(slugFromHash)
 
   useEffect(() => {
-    const onHash = () => setActive(slugFromHash());
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
+    const onHash = () => setActive(slugFromHash())
+    window.addEventListener("hashchange", onHash)
+    return () => window.removeEventListener("hashchange", onHash)
+  }, [])
 
   const navigate = useCallback((slug: string) => {
-    if (!getDoc(slug)) return;
-    window.location.hash = `/${slug}`;
-    setActive(slug);
-    document.querySelector(".reader")?.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+    if (!getDoc(slug)) return
+    window.location.hash = `/${slug}`
+    setActive(slug)
+    document.querySelector(".reader")?.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
 
-  const doc = getDoc(active);
+  const doc = getDoc(active)
 
   return (
     <div className="relative h-screen overflow-hidden">
@@ -57,5 +57,5 @@ export function App() {
         </footer>
       )}
     </div>
-  );
+  )
 }

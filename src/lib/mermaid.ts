@@ -3,27 +3,25 @@
 // Les couleurs suivent le thème (clair/sombre), avec la couleur d'accent
 // configurée dans docs.config.ts.
 
-import { currentAccentHex } from "./config";
-import type { Theme } from "./theme";
+import { currentAccentHex } from "./config"
+import type { Theme } from "./theme"
 
 type MermaidApi = {
-  initialize: (config: unknown) => void;
-  render: (id: string, code: string) => Promise<{ svg: string }>;
-};
+  initialize: (config: unknown) => void
+  render: (id: string, code: string) => Promise<{ svg: string }>
+}
 
-let mermaidPromise: Promise<MermaidApi> | null = null;
+let mermaidPromise: Promise<MermaidApi> | null = null
 
 function load(): Promise<MermaidApi> {
   if (!mermaidPromise) {
-    mermaidPromise = import("mermaid").then(
-      (mod) => mod.default as unknown as MermaidApi,
-    );
+    mermaidPromise = import("mermaid").then((mod) => mod.default as unknown as MermaidApi)
   }
-  return mermaidPromise;
+  return mermaidPromise
 }
 
 function themeVariables(theme: Theme) {
-  const accent = currentAccentHex();
+  const accent = currentAccentHex()
   if (theme === "dark") {
     return {
       background: "#0a0a0b",
@@ -49,7 +47,7 @@ function themeVariables(theme: Theme) {
       noteBkgColor: "#1c1d23",
       noteTextColor: "#cfd2d8",
       noteBorderColor: "#33343b",
-    };
+    }
   }
   return {
     background: "#ffffff",
@@ -75,21 +73,20 @@ function themeVariables(theme: Theme) {
     noteBkgColor: "#fff7ed",
     noteTextColor: "#3f3f46",
     noteBorderColor: "#fed7aa",
-  };
+  }
 }
 
-let counter = 0;
+let counter = 0
 export function renderMermaid(code: string, theme: Theme): Promise<string> {
-  const id = `mmd-${counter++}`;
+  const id = `mmd-${counter++}`
   return load().then((mermaid) => {
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: "loose",
       theme: "base",
-      fontFamily:
-        '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif',
       themeVariables: themeVariables(theme),
-    });
-    return mermaid.render(id, code).then((r) => r.svg);
-  });
+    })
+    return mermaid.render(id, code).then((r) => r.svg)
+  })
 }

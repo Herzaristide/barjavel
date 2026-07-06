@@ -27,12 +27,12 @@ links: [autre-slug, encore-un-slug]
 Votre contenu…
 ```
 
-| Champ     | Rôle                                                            |
-| --------- | -------------------------------------------------------------- |
-| `title`   | Titre affiché (onglet du graphe, résultats de recherche).      |
-| `group`   | Libellé de catégorie affiché sous le titre.                    |
-| `summary` | Résumé court, indexé par la recherche.                         |
-| `links`   | Slugs des pages reliées → **arêtes du graphe** (bidirectionnel).|
+| Champ     | Rôle                                                             |
+| --------- | ---------------------------------------------------------------- |
+| `title`   | Titre affiché (onglet du graphe, résultats de recherche).        |
+| `group`   | Libellé de catégorie affiché sous le titre.                      |
+| `summary` | Résumé court, indexé par la recherche.                           |
+| `links`   | Slugs des pages reliées → **arêtes du graphe** (bidirectionnel). |
 
 ## Relier vos pages (le graphe)
 
@@ -57,7 +57,7 @@ s'ouvrir en plein écran (zoom + déplacement). Ses couleurs suivent le thème.
 
 ```mermaid
 flowchart LR
-  A[Markdown] --> B[DocMaker]
+  A[Markdown] --> B[Borges]
   B --> C[Site déployé]
 ```
 

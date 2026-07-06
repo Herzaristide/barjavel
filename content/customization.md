@@ -15,8 +15,8 @@ const config: DocsConfig = {
   description: "Une doc simple et déployable en un clic.",
   lang: "fr",
   accent: "#7c3aed",
-  footer: "Construit avec DocMaker",
-};
+  footer: "Construit avec Borges",
+}
 ```
 
 ## La couleur d'accent

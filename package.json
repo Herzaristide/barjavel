@@ -1,5 +1,5 @@
 {
-  "name": "docmaker",
+  "name": "borges",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "format": "prettier --write \"**/*.{ts,tsx,js,css,md,json}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,css,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,css,md,json}\"",
+    "sync:template": "node scripts/sync-template.mjs"
   },
   "dependencies": {
     "d3-force": "^3.0.0",

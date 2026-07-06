@@ -1,21 +1,21 @@
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactNode, useRef, useState } from "react"
 
 interface Props {
-  children: ReactNode;
+  children: ReactNode
 }
 
 // Bloc de code avec bouton « copier » (apparaît au survol).
 export function CodeBlock({ children }: Props) {
-  const preRef = useRef<HTMLPreElement>(null);
-  const [copied, setCopied] = useState(false);
+  const preRef = useRef<HTMLPreElement>(null)
+  const [copied, setCopied] = useState(false)
 
   const copy = () => {
-    const text = preRef.current?.innerText ?? "";
+    const text = preRef.current?.innerText ?? ""
     navigator.clipboard?.writeText(text).then(() => {
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1500);
-    });
-  };
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1500)
+    })
+  }
 
   return (
     <div className="group relative">
@@ -63,5 +63,5 @@ export function CodeBlock({ children }: Props) {
         )}
       </button>
     </div>
-  );
+  )
 }
