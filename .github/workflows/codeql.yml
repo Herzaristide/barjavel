@@ -1,0 +1,42 @@
+name: CodeQL (SAST)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 4 * * 1" # analyse hebdomadaire (lundi 04:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write # nécessaire pour publier les résultats dans Security
+
+jobs:
+  analyze:
+    name: Analyse ${{ matrix.language }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialiser CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-and-quality
+          # Le moteur et les artefacts de build ne sont pas du code source à auditer.
+          config: |
+            paths-ignore:
+              - node_modules
+              - dist
+              - "**/*.min.js"
+
+      - name: Analyser
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
