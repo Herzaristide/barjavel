@@ -1,10 +1,11 @@
-# Borges
+# Barjavel
 
 **Déposez vos Markdown, choisissez une couleur, déployez.**
 
-Borges est un générateur de site de documentation minimaliste et élégant.
-Vous n'avez que deux choses à faire : mettre vos fichiers `.md` dans `content/`
-et régler une couleur d'accent dans `docs.config.ts`.
+Barjavel est un générateur de site de documentation minimaliste et élégant,
+distribué comme **dépendance npm avec CLI**. Votre projet ne contient que votre
+contenu (`content/*.md`) et une configuration (`docs.config.ts`) : le moteur vit
+dans le package et se met à jour avec un simple `npm update`.
 
 ## ✨ Fonctionnalités
 
@@ -14,40 +15,69 @@ et régler une couleur d'accent dans `docs.config.ts`.
 - 🌗 **Thème clair / sombre** persistant (suit la préférence système).
 - 🎨 **Une seule couleur d'accent** à changer, appliquée partout.
 - 📈 **Diagrammes Mermaid** (` ```mermaid `), plein écran avec zoom.
-- 📱 **PWA** : installable et consultable **hors-ligne** (manifeste + service worker).
+- 📱 **PWA** : installable et consultable **hors-ligne** (manifeste + service worker générés).
 - ⚡ **Statique** : se déploie n'importe où (GitHub Pages préconfiguré).
 
 ## 🚀 Démarrer
 
-### Dans un nouveau dossier (recommandé)
+Dans un dossier, créez trois choses :
 
-Un seul package npm suffit, utilisable aussi bien avec `npx` qu'avec `bunx` :
-
-```bash
-npx create-borges-docs mon-projet
-# ou
-bunx create-borges-docs mon-projet
-
-cd mon-projet
-npm run dev        # (ou `bun run dev`) http://localhost:5173
+```
+mon-projet/
+├── package.json        # dépend de "barjavel"
+├── docs.config.ts      # titre + couleur
+└── content/
+    └── index.md        # votre première page
 ```
 
-Options utiles : `--title "Mon titre"`, `--pm bun|npm|pnpm|yarn`, `--no-install`.
-Le CLI copie le template, installe les dépendances et affiche les prochaines
-étapes. Voir [`create-borges-docs/`](./create-borges-docs) pour le détail.
+`package.json` minimal :
 
-### En clonant ce dépôt
+```json
+{
+  "name": "ma-doc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "barjavel dev",
+    "build": "barjavel build",
+    "preview": "barjavel preview"
+  },
+  "dependencies": {
+    "barjavel": "^1.0.0"
+  }
+}
+```
+
+`docs.config.ts` :
+
+```ts
+import type { DocsConfig } from "barjavel"
+
+const config: DocsConfig = {
+  title: "Ma Documentation",
+  description: "Une documentation simple, propre et déployable en un clic.",
+  accent: "#2563eb",
+}
+
+export default config
+```
+
+Puis :
 
 ```bash
 npm install
 npm run dev        # http://localhost:5173
 ```
 
-Puis :
+## 🖥️ Le CLI
 
-1. Ouvrez `docs.config.ts` et changez `title` + `accent`.
-2. Déposez vos fichiers Markdown dans `content/`.
-3. C'est tout.
+```bash
+barjavel dev        # serveur de développement (HMR sur content/ et docs.config.ts)
+barjavel build      # génère le site statique dans ./dist
+barjavel preview    # sert ./dist localement
+
+# options : --base <chemin>  --port <n>  --open  --outDir <dossier>
+```
 
 ## ✏️ Ajouter une page
 
@@ -80,39 +110,64 @@ accent: "#2563eb", // bleu — ou #059669 (vert), #e11d48 (rose), #ea580c (orang
 
 Optionnellement, un accent différent par thème via `accentDark` / `accentLight`.
 
-## 📦 Build
+## 🖼️ Icônes & PWA
 
-```bash
-npm run build      # -> dist/ (site statique)
-npm run preview    # prévisualisation locale du build
-```
+Le manifeste et le service worker sont **générés** depuis `docs.config.ts`.
+Pour personnaliser les icônes, déposez les vôtres dans `public/icons/`
+(`icon.svg`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`) : elles
+remplacent celles par défaut.
 
 ## 🌐 Déploiement (GitHub Pages)
 
-Le workflow `.github/workflows/deploy.yml` est prêt :
-
-1. Poussez le repo sur GitHub.
-2. Dans **Settings → Pages**, choisissez la source **GitHub Actions**.
-3. À chaque push sur `main`, le site est construit et publié automatiquement.
-
-Le site étant compilé avec des chemins relatifs (`base: './'`), il fonctionne
+Le site est compilé avec des chemins relatifs (`base: './'`), il fonctionne donc
 aussi bien à la racine d'un domaine que dans un sous-chemin
-`https://<utilisateur>.github.io/<repo>/`.
+`https://<utilisateur>.github.io/<repo>/`. Un workflow prêt à l'emploi :
 
-## 🗂️ Structure
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+on:
+  push: { branches: [main] }
+permissions: { contents: read, pages: write, id-token: write }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: actions/configure-pages@v5
+        with: { enablement: true }
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: dist }
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: "${{ steps.deployment.outputs.page_url }}" }
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+## 🗂️ Ce dépôt
+
+Ce dépôt **est** le package `barjavel`, et se documente avec lui-même (dogfood) :
 
 ```
-borges/
-├── docs.config.ts        # ← votre configuration (titre + couleur)
-├── content/              # ← vos fichiers Markdown
-│   ├── index.md
-│   └── …
-├── src/                  # code de l'application (rarement à toucher)
-├── .github/workflows/    # déploiement GitHub Pages
-└── create-borges-docs/   # CLI `npx create-borges-docs` (scaffolding)
-    ├── bin/
-    └── template/         # copie synchronisée via `npm run sync:template`
+barjavel/
+├── bin/barjavel.mjs     # le CLI (dev / build / preview)
+├── vite/plugin.mjs      # plugin Vite : modules virtuels contenu/config + PWA
+├── app/                 # le moteur (React + Vite) : index.html, composants, styles
+├── assets/              # PWA par défaut (service worker, icônes)
+├── content/*.md         # la doc de Barjavel (exemple + dogfood, non publié)
+├── docs.config.ts       # config de cette doc (non publié)
+└── .github/workflows/   # ci, deploy (Pages), publish (npm sur tag v*)
 ```
+
+Développement local du moteur : `npm install && npm run dev`.
+Publication : pousser un tag `v*` (nécessite le secret `NPM_TOKEN`).
 
 ## 📄 Licence
 

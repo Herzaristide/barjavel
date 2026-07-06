@@ -1,36 +1,72 @@
 {
-  "name": "borges",
-  "private": true,
+  "name": "barjavel",
   "version": "1.0.0",
   "type": "module",
-  "description": "Documentation site generator: drop your Markdown, pick an accent color, deploy.",
+  "description": "Générateur de site de documentation : déposez votre Markdown, choisissez une couleur, déployez. Graphe de relations navigable, Mermaid, PWA.",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "docs",
+    "static-site",
+    "markdown",
+    "mermaid",
+    "knowledge-graph",
+    "pwa"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Herzaristide/barjavel.git"
+  },
+  "bin": {
+    "barjavel": "bin/barjavel.mjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./vite/plugin.mjs"
+    },
+    "./plugin": "./vite/plugin.mjs"
+  },
+  "types": "./index.d.ts",
+  "files": [
+    "app",
+    "assets",
+    "bin",
+    "vite",
+    "index.d.ts",
+    "tailwind.config.js",
+    "postcss.config.js"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "format": "prettier --write \"**/*.{ts,tsx,js,css,md,json}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,css,md,json}\"",
-    "sync:template": "node scripts/sync-template.mjs"
+    "dev": "node bin/barjavel.mjs dev",
+    "build": "node bin/barjavel.mjs build",
+    "preview": "node bin/barjavel.mjs preview",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,css,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,css,md,json}\""
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.5.2",
     "d3-force": "^3.0.0",
+    "esbuild": "^0.24.0",
     "mermaid": "^11.16.0",
+    "postcss": "^8.5.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
-    "remark-gfm": "^4.0.0"
+    "remark-gfm": "^4.0.0",
+    "tailwindcss": "^3.4",
+    "vite": "^5.4.6"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.20",
     "@types/d3-force": "^3.0.10",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.5.2",
-    "postcss": "^8.5.16",
     "prettier": "^3.3.3",
-    "tailwindcss": "^3.4",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.6"
+    "typescript": "^5.5.4"
   }
 }

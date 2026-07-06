@@ -3,7 +3,8 @@ import typography from "@tailwindcss/typography"
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  // Note : le CLI barjavel surcharge `content` avec des chemins absolus vers app/.
+  content: ["./app/index.html", "./app/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {

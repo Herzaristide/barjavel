@@ -17,5 +17,5 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vite/client"]
   },
-  "include": ["src", "docs.config.ts"]
+  "include": ["app", "docs.config.ts", "index.d.ts"]
 }

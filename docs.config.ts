@@ -1,4 +1,4 @@
-import type { DocsConfig } from "./src/lib/config"
+import type { DocsConfig } from "./app/lib/config"
 
 /**
  * Configuration de votre documentation.
@@ -10,8 +10,8 @@ import type { DocsConfig } from "./src/lib/config"
  * La couleur d'accent accepte n'importe quelle valeur hexadécimale.
  */
 const config: DocsConfig = {
-  title: "Ma Documentation",
-  description: "Une documentation simple, propre et déployable en un clic.",
+  title: "Barjavel",
+  description: "Générateur de documentation : Markdown, graphe de relations, Mermaid, PWA.",
   lang: "fr",
 
   // Couleur d'accent unique (titres, liens, graphe, diagrammes…).

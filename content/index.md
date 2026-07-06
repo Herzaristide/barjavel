@@ -7,7 +7,7 @@ links: [getting-started, guide, customization]
 
 # Bienvenue 👋
 
-Ceci est une documentation générée avec **Borges**. Elle est volontairement
+Ceci est une documentation générée avec **Barjavel**. Elle est volontairement
 minimaliste : à gauche votre texte « flottant dans le vide », à droite un
 **graphe de relations** navigable entre vos pages.
 

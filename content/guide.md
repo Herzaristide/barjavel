@@ -57,7 +57,7 @@ s'ouvrir en plein écran (zoom + déplacement). Ses couleurs suivent le thème.
 
 ```mermaid
 flowchart LR
-  A[Markdown] --> B[Borges]
+  A[Markdown] --> B[Barjavel]
   B --> C[Site déployé]
 ```
 
