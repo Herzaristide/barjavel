@@ -138,4 +138,11 @@
     height: auto;
     margin: 0 auto;
   }
+
+  /* Images du contenu : cadre discret, pour qu'une capture sombre ou claire
+     se détache quel que soit le thème. */
+  .prose :where(img) {
+    border: 1px solid rgb(var(--line-strong));
+    border-radius: 0.75rem;
+  }
 }
