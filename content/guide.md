@@ -40,6 +40,12 @@ Le graphe de droite est construit **automatiquement** à partir du champ
 `links`. Reliez `a` à `b` et une arête apparaît entre les deux nœuds. Plus une
 page est centrale, plus son nœud est gros.
 
+![Le graphe de relations : la page courante est entourée, ses voisines sont reliées en couleur](images/graphe.webp)
+
+Le bouton **Notes reliées** restreint l'affichage aux voisines de la page
+courante ; la molette règle l'espacement et un glisser sur le fond déplace la
+vue.
+
 La page d'accueil est `content/index.md`.
 
 ## Liens internes
@@ -61,7 +67,25 @@ flowchart LR
   B --> C[Site déployé]
 ```
 
+Un clic sur le diagramme l'ouvre en plein écran :
+
+![Un diagramme Mermaid ouvert en plein écran, avec les boutons de zoom](images/mermaid-plein-ecran.webp)
+
+## Images
+
+Déposez vos images dans `public/` (par exemple `public/images/`) et
+référencez-les avec un **chemin relatif**, sans `/` initial, pour qu'elles
+fonctionnent aussi sous un sous-chemin (GitHub Pages) :
+
+```markdown
+![Texte alternatif](images/capture.webp)
+```
+
+Le texte alternatif est lu par les lecteurs d'écran : décrivez ce que montre
+l'image. Les images reçoivent automatiquement un cadre discret et s'adaptent à
+la largeur du texte.
+
 ## Le reste
 
 Tout le **Markdown** standard fonctionne (GFM) : titres, listes, tableaux,
-blocs de code (avec bouton « copier »), citations, images, etc.
+blocs de code (avec bouton « copier »), citations, etc.

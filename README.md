@@ -7,6 +7,8 @@ distribué comme **dépendance npm avec CLI**. Votre projet ne contient que votr
 contenu (`content/*.md`) et une configuration (`docs.config.ts`) : le moteur vit
 dans le package et se met à jour avec un simple `npm update`.
 
+![Une page Barjavel en thème sombre : le texte à gauche, le graphe des pages à droite](public/images/accueil-sombre.webp)
+
 ## ✨ Fonctionnalités
 
 - 📝 **Markdown** (GFM) : titres, tableaux, blocs de code (bouton « copier »)…
@@ -17,6 +19,10 @@ dans le package et se met à jour avec un simple `npm update`.
 - 📈 **Diagrammes Mermaid** (` ```mermaid `), plein écran avec zoom.
 - 📱 **PWA** : installable et consultable **hors-ligne** (manifeste + service worker générés).
 - ⚡ **Statique** : se déploie n'importe où (GitHub Pages préconfiguré).
+
+| Recherche `⌘K`                                         | Mermaid en plein écran                                                      |
+| ------------------------------------------------------ | --------------------------------------------------------------------------- |
+| ![Recherche instantanée](public/images/recherche.webp) | ![Diagramme Mermaid en plein écran](public/images/mermaid-plein-ecran.webp) |
 
 ## 🚀 Démarrer
 
@@ -110,6 +116,8 @@ accent: "#2563eb", // bleu — ou #059669 (vert), #e11d48 (rose), #ea580c (orang
 
 Optionnellement, un accent différent par thème via `accentDark` / `accentLight`.
 
+![La même page avec quatre accents : violet, bleu, vert et orange](public/images/accents.webp)
+
 ## 🖼️ Icônes & PWA
 
 Le manifeste et le service worker sont **générés** depuis `docs.config.ts`.
@@ -162,6 +170,7 @@ barjavel/
 ├── app/                 # le moteur (React + Vite) : index.html, composants, styles
 ├── assets/              # PWA par défaut (service worker, icônes)
 ├── content/*.md         # la doc de Barjavel (exemple + dogfood, non publié)
+├── public/images/       # captures d'écran utilisées par la doc et ce README
 ├── docs.config.ts       # config de cette doc (non publié)
 └── .github/workflows/   # ci, deploy (Pages), publish (npm sur tag v*)
 ```

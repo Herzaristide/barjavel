@@ -24,6 +24,8 @@ const config: DocsConfig = {
 Une seule valeur hexadécimale suffit : elle colore les titres, les liens, les
 nœuds du graphe et les diagrammes.
 
+![La même page avec quatre accents : violet, bleu, vert et orange](images/accents.webp)
+
 | Couleur | Hex       |
 | ------- | --------- |
 | Violet  | `#7c3aed` |
@@ -47,6 +49,8 @@ accentLight: "#7c3aed",  // plus soutenu sur fond clair
 
 Le bouton en haut à droite bascule le thème ; le choix est mémorisé et suit la
 préférence système par défaut. Aucune configuration nécessaire.
+
+![La page d'accueil en thème clair](images/accueil-clair.webp)
 
 ## Pied de page
 

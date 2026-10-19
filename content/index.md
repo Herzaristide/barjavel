@@ -11,6 +11,8 @@ Ceci est une documentation générée avec **Barjavel**. Elle est volontairement
 minimaliste : à gauche votre texte « flottant dans le vide », à droite un
 **graphe de relations** navigable entre vos pages.
 
+![La page d'accueil de Barjavel en thème sombre : le texte à gauche, le graphe des pages à droite](images/accueil-sombre.webp)
+
 ## En trois étapes
 
 1. Déposez vos fichiers **Markdown** dans le dossier `content/`.
@@ -22,6 +24,8 @@ minimaliste : à gauche votre texte « flottant dans le vide », à droite un
 - Démarrer rapidement → [Prise en main](#getting-started).
 - Rédiger vos pages → [Guide de rédaction](#guide).
 - Changer les couleurs → [Personnalisation](#customization).
+
+![La recherche instantanée, ouverte avec ⌘K](images/recherche.webp)
 
 > Astuce : appuyez sur `⌘K` (ou `Ctrl+K`) pour rechercher dans toute la
 > documentation.
