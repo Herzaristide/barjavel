@@ -1,5 +1,5 @@
 /**
- * Décor d'arrière-plan global : formes géométriques en lignes fines violet
+ * Décor d'arrière-plan global : formes géométriques en lignes fines, couleur d'accent
  * (repris du dashboard web). Toutes les formes sont ancrées à GAUCHE, du côté
  * du markdown, pour ne pas entrer en conflit avec le graphe (à droite).
  * Fixé derrière tout le contenu (pointer-events-none).

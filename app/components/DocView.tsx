@@ -30,21 +30,20 @@ export function DocView({ doc, onNavigate }: Props) {
   return (
     <article className="pointer-events-auto mx-auto max-w-[720px] animate-rise">
       <header className="mb-9">
-        <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-faint">
-          {doc.group}
-        </span>
-        {doc.summary && <p className="mt-2 text-lg leading-relaxed text-ink-dim">{doc.summary}</p>}
+        <span className="k-label">{doc.group}</span>
+        {doc.summary && <p className="mt-3 text-lg leading-relaxed text-ink-dim">{doc.summary}</p>}
       </header>
 
       <div
         className="prose prose-base max-w-none font-sans
-          prose-headings:font-semibold prose-headings:tracking-tight
-          prose-h1:text-4xl prose-h1:mb-6 prose-h1:tracking-tighter
+          prose-headings:font-medium prose-headings:tracking-tight
+          prose-h1:text-[2.6rem] prose-h1:font-light prose-h1:text-ink prose-h1:mb-6 prose-h1:tracking-[-0.03em]
           prose-h2:text-2xl prose-h2:mt-11
           prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-          prose-code:font-normal prose-code:text-[0.86em] prose-code:text-ink-dim
+          prose-code:font-normal prose-code:text-[0.86em]
           [&_code]:before:content-none [&_code]:after:content-none
-          prose-pre:rounded-none prose-pre:border-0 prose-pre:px-0"
+          prose-pre:rounded-[14px] prose-pre:border-0 prose-pre:px-5 prose-pre:py-4
+          prose-th:font-medium prose-th:text-ink-dim"
       >
         <Markdown
           remarkPlugins={[remarkGfm]}
@@ -97,9 +96,9 @@ export function DocView({ doc, onNavigate }: Props) {
               key={r.slug}
               type="button"
               onClick={() => onNavigate(r.slug)}
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-panel px-3.5 py-1.5 text-sm text-ink-dim transition hover:-translate-y-px hover:border-ink-faint hover:text-ink"
+              className="k-btn h-[34px] px-3.5 text-[0.85rem]"
             >
-              <span className="h-[7px] w-[7px] flex-none rounded-full bg-accent" />
+              <span className="h-1.5 w-1.5 flex-none rounded-full bg-accent" />
               {r.title}
             </button>
           ))}

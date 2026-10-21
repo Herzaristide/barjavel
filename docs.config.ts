@@ -17,7 +17,7 @@ const config: DocsConfig = {
   // Couleur d'accent unique (titres, liens, graphe, diagrammes…).
   // Exemples : "#7c3aed" (violet), "#2563eb" (bleu), "#059669" (vert),
   // "#e11d48" (rose), "#ea580c" (orange).
-  accent: "#e11d48",
+  accent: "#d4a35f",
 
   // Optionnel : forcer un accent différent selon le thème.
   // accentDark: "#a78bfa",

@@ -8,23 +8,27 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <!-- Les polices de karenine : Inter et JetBrains Mono (repli système hors ligne). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Documentation</title>
     <script>
       // Applique le thème avant le premier rendu (anti-flash).
-      (function () {
+      ;(function () {
         try {
-          var t = localStorage.getItem("barjavel-theme");
-          if (!t)
-            t = window.matchMedia("(prefers-color-scheme: light)").matches
-              ? "light"
-              : "dark";
-          document.documentElement.classList.toggle("dark", t === "dark");
+          var t = localStorage.getItem("barjavel-theme")
+          if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
+          document.documentElement.classList.toggle("dark", t === "dark")
         } catch (e) {
-          document.documentElement.classList.add("dark");
+          document.documentElement.classList.add("dark")
         }
-      })();
+      })()
     </script>
   </head>
   <body>

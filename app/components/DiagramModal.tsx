@@ -108,20 +108,19 @@ export function DiagramModal({ svg, onClose }: Props) {
     drag.current = null
   }
 
-  const btn =
-    "grid h-[34px] min-w-[34px] place-items-center rounded-lg border border-transparent px-2.5 text-ink-dim transition hover:bg-void hover:text-ink"
+  const btn = "k-btn h-[34px] min-w-[34px] px-2.5"
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex animate-fade items-center justify-center bg-black/40 p-4 backdrop-blur-sm sm:p-8"
+      className="fixed inset-0 z-[60] flex animate-fade items-center justify-center bg-black/40 p-4 sm:p-8"
       role="dialog"
       aria-modal="true"
       onPointerDown={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="relative h-[80vh] w-[88vw] max-w-5xl overflow-hidden rounded-2xl border border-line bg-void/85 shadow-2xl backdrop-blur-md">
-        <div className="absolute right-4 top-4 z-[2] flex gap-1.5 rounded-xl border border-line bg-panel/85 p-1.5 backdrop-blur">
+      <div className="k-card relative h-[80vh] w-[88vw] max-w-5xl overflow-hidden shadow-2xl">
+        <div className="k-group absolute right-4 top-4 z-[2]">
           <button
             type="button"
             onClick={() => zoomBy(1 / 1.25)}
@@ -166,9 +165,9 @@ export function DiagramModal({ svg, onClose }: Props) {
           />
         </div>
 
-        <div className="absolute bottom-4 left-1/2 z-[2] -translate-x-1/2 rounded-full border border-line bg-panel/80 px-3.5 py-1.5 text-[0.78rem] text-ink-faint backdrop-blur">
-          Molette pour zoomer · glisser pour déplacer ·{" "}
-          <kbd className="rounded border border-line bg-void px-1 font-mono">Échap</kbd> pour fermer
+        <div className="absolute bottom-4 left-1/2 z-[2] -translate-x-1/2 whitespace-nowrap rounded-lg bg-panel px-3.5 py-1.5 text-[0.78rem] text-ink-dim">
+          Molette pour zoomer · glisser pour déplacer · <kbd className="k-kbd">Échap</kbd> pour
+          fermer
         </div>
       </div>
     </div>
