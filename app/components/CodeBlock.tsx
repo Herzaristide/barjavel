@@ -11,10 +11,15 @@ export function CodeBlock({ children }: Props) {
 
   const copy = () => {
     const text = preRef.current?.innerText ?? ""
-    navigator.clipboard?.writeText(text).then(() => {
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1500)
-    })
+    navigator.clipboard
+      ?.writeText(text)
+      .then(() => {
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 1500)
+      })
+      .catch(() => {
+        // Presse-papiers refusé (permissions) : pas de retour visuel.
+      })
   }
 
   return (
@@ -24,7 +29,7 @@ export function CodeBlock({ children }: Props) {
         type="button"
         onClick={copy}
         aria-label="Copier le code"
-        className="absolute right-2 top-2 flex items-center gap-1 rounded-md border border-line bg-panel/80 px-2 py-1 text-[0.72rem] text-ink-dim opacity-0 backdrop-blur transition focus:opacity-100 group-hover:opacity-100 hover:border-ink-faint hover:text-ink"
+        className="k-btn absolute right-2.5 top-2.5 h-7 px-2.5 text-[0.72rem] opacity-0 focus:opacity-100 group-hover:opacity-100"
       >
         {copied ? (
           <>

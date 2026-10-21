@@ -45,7 +45,7 @@ self.addEventListener("fetch", (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone()
-          caches.open(VERSION).then((cache) => cache.put(request, copy))
+          void caches.open(VERSION).then((cache) => cache.put(request, copy))
           return response
         })
         .catch(() =>
@@ -62,7 +62,7 @@ self.addEventListener("fetch", (event) => {
         .then((response) => {
           if (response && response.status === 200) {
             const copy = response.clone()
-            caches.open(VERSION).then((cache) => cache.put(request, copy))
+            void caches.open(VERSION).then((cache) => cache.put(request, copy))
           }
           return response
         })

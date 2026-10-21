@@ -34,7 +34,7 @@ const accentDarkHex = config.accentDark ?? config.accent
 const accentLightHex = config.accentLight ?? config.accent
 
 /** Convertit "#7c3aed" ou "7c3aed" en triplet "124 58 237" (pour rgb()). */
-function hexToRgbTriplet(hex: string): string {
+export function hexToRgbTriplet(hex: string): string {
   let h = hex.trim().replace(/^#/, "")
   if (h.length === 3) {
     h = h
@@ -44,8 +44,8 @@ function hexToRgbTriplet(hex: string): string {
   }
   const int = Number.parseInt(h, 16)
   if (h.length !== 6 || Number.isNaN(int)) {
-    // Repli : violet, pour éviter une couleur cassée si l'hex est invalide.
-    return "124 58 237"
+    // Repli : le cuivre de karenine, pour éviter une couleur cassée si l'hex est invalide.
+    return "212 163 95"
   }
   const r = (int >> 16) & 255
   const g = (int >> 8) & 255
