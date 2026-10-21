@@ -2,41 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Le design de karenine (palette « Ajar ») : plat et opaque, sans verre ni
+  flou ni halo. L'encre en sombre, le papier en clair ; un seul accent.
+  Les filets valent le texte à 8 %, ce qui est retenu l'accent à 16 %.
+*/
 @layer base {
-  /* ---- Thème sombre (par défaut) ---- */
+  /* ---- Thème sombre (par défaut) : l'encre ---- */
   :root {
-    --void: 10 10 11;
-    --panel: 22 23 28;
-    --ink: 240 241 243;
-    --ink-dim: 176 180 188;
-    --ink-faint: 108 112 120;
-    --line: 30 31 36;
-    --line-strong: 58 59 66;
-    --node: 82 86 96;
+    --void: 27 26 24; /* base00 #1b1a18 : le fond */
+    --panel: 38 36 33; /* base01 #262421 : le panneau, un ton au-dessus */
+    --ink: 217 210 197; /* base05 #d9d2c5 : le texte */
+    --ink-dim: 154 146 134; /* base04 #9a9286 */
+    --ink-faint: 107 100 90; /* base03 #6b645a */
+    --line: 42 41 38; /* le texte à 8 % sur le fond */
+    --line-strong: 57 55 51; /* le texte à 16 % sur le fond */
+    --node: 107 100 90;
     /* L'accent est injecté par docs.config.ts via --accent-dark / --accent-light.
-       Les valeurs ci-dessous ne servent que de repli avant l'application JS. */
-    --accent: var(--accent-dark, 124 58 237);
+       Les valeurs ci-dessous (le cuivre d'Ajar) ne servent que de repli. */
+    --accent: var(--accent-dark, 212 163 95);
 
-    --prose-body: 226 228 233;
-    --prose-pre-code: 215 218 225;
-    --prose-pre-bg: 16 16 19;
+    --prose-body: 217 210 197;
+    --prose-pre-code: 217 210 197;
   }
 
-  /* ---- Thème clair ---- */
+  /* ---- Thème clair : le papier ---- */
   :root:not(.dark) {
-    --void: 250 250 250;
-    --panel: 255 255 255;
-    --ink: 24 24 27;
-    --ink-dim: 82 82 91;
-    --ink-faint: 148 148 156;
-    --line: 228 228 231;
-    --line-strong: 212 212 216;
-    --node: 120 124 133; /* assez foncé pour rester visible sur fond clair */
-    --accent: var(--accent-light, 124 58 237);
+    --void: 245 240 230; /* #f5f0e6 */
+    --panel: 235 228 214; /* #ebe4d6 */
+    --ink: 42 37 33; /* #2a2521 */
+    --ink-dim: 110 100 87; /* #6e6457 */
+    --ink-faint: 163 152 135; /* #a39887 */
+    --line: 229 224 214;
+    --line-strong: 213 208 198;
+    --node: 138 128 114; /* assez foncé pour rester visible sur le papier */
+    --accent: var(--accent-light, 212 163 95);
 
-    --prose-body: 63 63 70;
-    --prose-pre-code: 63 63 70;
-    --prose-pre-bg: 244 244 245;
+    --prose-body: 42 37 33;
+    --prose-pre-code: 42 37 33;
   }
 
   html {
@@ -48,14 +51,17 @@
 
   body {
     @apply bg-void text-ink font-sans antialiased;
-    /* Dégradé radial teinté violet (repris du dashboard : bg-app-radial),
-       côté markdown (gauche) pour ne pas empiéter sur le graphe. */
+    /* Dégradé radial teinté d'accent, côté markdown (gauche) pour ne pas
+       empiéter sur le graphe. */
     background-image: radial-gradient(
       1200px 600px at 0% -10%,
       rgb(var(--accent) / 0.1),
       transparent 60%
     );
     background-attachment: fixed;
+    font-feature-settings:
+      "cv11" 1,
+      "ss01" 1;
   }
 
   ::selection {
@@ -65,15 +71,15 @@
   /* Barres de défilement discrètes */
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgb(var(--line)) transparent;
+    scrollbar-color: rgb(var(--line-strong)) transparent;
   }
   ::-webkit-scrollbar {
     width: 9px;
     height: 9px;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgb(var(--line));
-    border-radius: 10px;
+    background: rgb(var(--line-strong));
+    border-radius: 8px;
   }
 
   /* Lecteur markdown : barre de défilement à gauche et quasi invisible
@@ -82,8 +88,8 @@
     direction: rtl;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
-    /* Voile semi-transparent qui préserve la lisibilité au-dessus du graphe
-       et s'estompe vers la droite : aucune démarcation nette de fond. */
+    /* Voile du fond qui préserve la lisibilité au-dessus du graphe et
+       s'estompe vers la droite : aucune démarcation nette. */
     background: linear-gradient(
       90deg,
       rgb(var(--void) / 0.55) 0%,
@@ -99,10 +105,10 @@
     background: transparent;
   }
   .reader:hover {
-    scrollbar-color: rgb(var(--line)) transparent;
+    scrollbar-color: rgb(var(--line-strong)) transparent;
   }
   .reader:hover::-webkit-scrollbar-thumb {
-    background: rgb(var(--line));
+    background: rgb(var(--line-strong));
   }
 }
 
@@ -110,7 +116,7 @@
   Palette de la typographie (@tailwindcss/typography).
   Non layered : ces règles l'emportent sur les valeurs par défaut du plugin
   (couche `components`) et suivent le thème via les variables ci-dessus.
-  Accent (violet) sur les titres et les liens ; corps de texte à fort contraste.
+  Accent sur les intertitres et les liens, comme les titres de section de karenine.
 */
 .prose {
   --tw-prose-body: rgb(var(--prose-body));
@@ -119,19 +125,73 @@
   --tw-prose-links: rgb(var(--accent));
   --tw-prose-bold: rgb(var(--ink));
   --tw-prose-counters: rgb(var(--ink-dim));
-  --tw-prose-bullets: rgb(var(--line-strong));
+  --tw-prose-bullets: rgb(var(--ink-faint));
   --tw-prose-hr: rgb(var(--line));
   --tw-prose-quotes: rgb(var(--ink-dim));
-  --tw-prose-quote-borders: rgb(var(--line));
+  --tw-prose-quote-borders: rgb(var(--accent) / 0.4);
   --tw-prose-captions: rgb(var(--ink-faint));
   --tw-prose-code: rgb(var(--ink));
   --tw-prose-pre-code: rgb(var(--prose-pre-code));
-  --tw-prose-pre-bg: transparent; /* le code flotte dans le vide, sans fond */
-  --tw-prose-th-borders: rgb(var(--line));
+  --tw-prose-pre-bg: rgb(var(--panel));
+  --tw-prose-th-borders: rgb(var(--line-strong));
   --tw-prose-td-borders: rgb(var(--line));
 }
 
 @layer components {
+  /* Le bouton de karenine (GlassButton) : un aplat discret, sans bordure,
+     un léger tassement au clic, sans rebond. */
+  .k-btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg bg-ink/5 font-medium text-ink-dim outline-none transition duration-150 ease-out;
+  }
+  .k-btn:hover,
+  .k-btn:focus-visible {
+    @apply bg-ink/[0.09] text-ink;
+  }
+  .k-btn:active {
+    transform: scale(0.96);
+  }
+  .k-btn:focus-visible {
+    box-shadow: 0 0 0 2px rgb(var(--accent) / 0.6);
+  }
+  /* Ce qui est retenu, ou le bouton principal : l'accent à 16 %. */
+  .k-btn-on {
+    @apply bg-accent/15 text-ink;
+  }
+  .k-btn-on:hover,
+  .k-btn-on:focus-visible {
+    @apply bg-accent/25;
+  }
+
+  /* Un groupe d'icônes posé sur un panneau, comme la barre du haut de karenine. */
+  .k-group {
+    @apply flex items-center gap-1 rounded-[14px] bg-panel p-1;
+  }
+  .k-group .k-btn {
+    @apply bg-transparent;
+  }
+  .k-group .k-btn:hover,
+  .k-group .k-btn:focus-visible {
+    @apply bg-ink/[0.07];
+  }
+
+  /* La carte : le fond, un filet, 14 px. Opaque. */
+  .k-card {
+    @apply rounded-[14px] border border-line bg-void;
+  }
+
+  /* L'étiquette de section : capitales espacées, précédées d'un point d'accent. */
+  .k-label {
+    @apply inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-dim;
+  }
+  .k-label::before {
+    content: "";
+    @apply h-1.5 w-1.5 flex-none rounded-full bg-accent;
+  }
+
+  .k-kbd {
+    @apply rounded-md bg-ink/[0.07] px-1.5 py-0.5 font-mono text-[0.68rem] text-ink-dim;
+  }
+
   /* Diagrammes Mermaid : le SVG injecté hérite de la largeur du conteneur. */
   .mermaid-svg :where(svg) {
     max-width: 100%;
@@ -139,10 +199,15 @@
     margin: 0 auto;
   }
 
-  /* Images du contenu : cadre discret, pour qu'une capture sombre ou claire
-     se détache quel que soit le thème. */
+  /* Images du contenu : un filet discret, pour qu'une capture sombre ou
+     claire se détache quel que soit le thème. */
   .prose :where(img) {
     border: 1px solid rgb(var(--line-strong));
-    border-radius: 0.75rem;
+    border-radius: 14px;
+  }
+
+  /* Code en ligne : un aplat, comme les champs de karenine. */
+  .prose :where(:not(pre) > code) {
+    @apply rounded-md bg-ink/[0.07] px-1.5 py-0.5;
   }
 }

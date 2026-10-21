@@ -18,8 +18,9 @@ export default {
         line: "rgb(var(--line) / <alpha-value>)",
       },
       fontFamily: {
+        // Les polices de karenine : Inter pour tout, JetBrains Mono pour le code.
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        mono: ["ui-monospace", "SF Mono", "JetBrains Mono", "Menlo", "monospace"],
+        mono: ["JetBrains Mono", "ui-monospace", "SF Mono", "Menlo", "monospace"],
       },
       keyframes: {
         rise: {
@@ -32,8 +33,9 @@ export default {
         },
       },
       animation: {
-        rise: "rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1)",
-        fade: "fade 0.15s ease",
+        // Les courbes de karenine : OutCubic, sans rebond.
+        rise: "rise 0.4s cubic-bezier(0.33, 1, 0.68, 1)",
+        fade: "fade 0.16s cubic-bezier(0.33, 1, 0.68, 1)",
       },
     },
   },

@@ -15,7 +15,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vite/client"]
+    "allowJs": true,
+    "types": ["vite/client", "node"]
   },
-  "include": ["app", "docs.config.ts", "index.d.ts"]
+  "include": ["app", "docs.config.ts", "index.d.ts", "tests", "vitest.config.ts"]
 }

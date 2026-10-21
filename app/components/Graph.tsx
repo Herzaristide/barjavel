@@ -240,9 +240,7 @@ export function Graph({ active, onSelect }: Props) {
                   onPointerLeave={() => setHover(null)}
                   onClick={() => onSelect(n.id)}
                 >
-                  {isActive && (
-                    <circle r={n.r + 7} className="animate-pulse fill-none stroke-accent/40" />
-                  )}
+                  {isActive && <circle r={n.r + 6} className="fill-accent/15 stroke-none" />}
                   <circle
                     r={n.r}
                     strokeWidth={2}
@@ -271,10 +269,8 @@ export function Graph({ active, onSelect }: Props) {
         onClick={() => setFocus((f) => !f)}
         aria-pressed={focus}
         title="N'afficher que les notes reliées à la note actuelle"
-        className={`absolute bottom-11 right-3 flex items-center gap-2 rounded-full border px-3 py-1.5 text-[0.72rem] backdrop-blur transition ${
-          focus
-            ? "border-accent/60 bg-accent/15 text-accent"
-            : "border-line bg-panel/70 text-ink-dim hover:border-ink-faint hover:text-ink"
+        className={`k-btn absolute bottom-11 right-3 h-[30px] px-3 text-[0.72rem] ${
+          focus ? "k-btn-on" : "bg-panel hover:bg-[rgb(var(--line-strong))]"
         }`}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -290,7 +286,7 @@ export function Graph({ active, onSelect }: Props) {
         Notes reliées
       </button>
 
-      <div className="pointer-events-none absolute bottom-3 right-3 select-none rounded-full border border-line bg-panel/70 px-2.5 py-1 text-[0.7rem] text-ink-faint backdrop-blur">
+      <div className="pointer-events-none absolute bottom-3 right-3 select-none px-1 py-1 text-[0.7rem] text-ink-faint">
         molette : espacement · glisser le fond : déplacer
       </div>
     </div>

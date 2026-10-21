@@ -32,7 +32,7 @@ export function App() {
 
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* Décor de fond (formes géométriques violet, repris du dashboard). */}
+      {/* Décor de fond (formes géométriques, couleur d'accent). */}
       <Background />
 
       {/* Le graphe occupe tout l'écran, en fond. */}
@@ -46,7 +46,8 @@ export function App() {
         {doc && <DocView doc={doc} onNavigate={navigate} />}
       </main>
 
-      <div className="fixed right-5 top-5 z-30 flex items-center gap-2">
+      {/* Les actions, groupées sur un panneau comme la barre du haut de karenine. */}
+      <div className="k-group fixed right-5 top-5 z-30">
         <ThemeToggle />
         <Search onSelect={navigate} />
       </div>

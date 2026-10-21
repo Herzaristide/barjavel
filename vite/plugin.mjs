@@ -49,7 +49,7 @@ export function barjavel({ cwd, pkgDir }) {
   async function getConfig() {
     if (configCache) return configCache
     if (!existsSync(configFile)) {
-      configCache = { title: "Documentation", accent: "#7c3aed", lang: "fr" }
+      configCache = { title: "Documentation", accent: "#d4a35f", lang: "fr" }
       return configCache
     }
     const res = await esbuild({
@@ -76,7 +76,7 @@ export function barjavel({ cwd, pkgDir }) {
         start_url: "./",
         scope: "./",
         display: "standalone",
-        background_color: "#0a0a0a",
+        background_color: "#1b1a18",
         theme_color: c.accent,
         lang: c.lang || "fr",
         icons: [

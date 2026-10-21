@@ -172,10 +172,13 @@ barjavel/
 ├── content/*.md         # la doc de Barjavel (exemple + dogfood, non publié)
 ├── public/images/       # captures d'écran utilisées par la doc et ce README
 ├── docs.config.ts       # config de cette doc (non publié)
+├── tests/               # tests vitest (lib, composants, plugin, CLI, SW, build e2e)
 └── .github/workflows/   # ci, deploy (Pages), publish (npm sur tag v*)
 ```
 
 Développement local du moteur : `npm install && npm run dev`.
+Tests : `npm test` (ou `npm run test:coverage` pour le rapport de couverture,
+avec des seuils minimaux imposés en CI).
 Publication : pousser un tag `v*` (nécessite le secret `NPM_TOKEN`).
 
 ## 📄 Licence
